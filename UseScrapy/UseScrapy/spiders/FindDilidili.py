@@ -8,12 +8,12 @@ from UseScrapy.items import DilidiliItem
 class FinddilidiliSpider(CrawlSpider):
     name = 'FindDilidili'
     allowed_domains = ['www.dilidili.wang', 'bbs.005.tv']
-    start_urls = ['http://www.dilidili.wang/anime/etotama/']
+    start_urls = ['http://www.dilidili.wang/hougong/']
 # http://www.dilidili.wang/hougong/
 
     rules = (
-        Rule(LinkExtractor(allow=r'/houogong/'), follow=True),
-        Rule(LinkExtractor(allow=r'/anime/'), callback='parse_item'),
+        Rule(LinkExtractor(allow=r'dilidili'), follow=True),
+        Rule(LinkExtractor(allow=r'/anime/'), callback='parse_item', follow=True),
         Rule(LinkExtractor(allow=r'bbs.005.tv/'), callback='parse_item_bbs')
     )
 
@@ -32,7 +32,7 @@ class FinddilidiliSpider(CrawlSpider):
         print(i['url'])
         if i['url'] == []:
             print("no url")
-            return
+            return None
         return i
 
     def parse_item_bbs(self, response):
